@@ -94,6 +94,40 @@ for nev in nevsor:
 
 # pythonban a lista elemeit nullától indexeljük
 for index, nev in enumerate(nevsor):
-    print('{} :  {} '.format(index, nev))
+    print('{} :  {} '.format(index+1, nev))
 
 print('a nevsor nulladik eleme: {} '.format(nevsor[0]))
+
+
+def divisible_by_three(num):
+    if type(num) != int:
+        # return None
+        return 'nem szamot kaptam'
+
+    if num % 3 == 0:
+        # early return
+        return True
+    return False
+
+
+print(divisible_by_three(9))
+print(divisible_by_three(4))
+print(divisible_by_three('4'))
+
+
+def divisible_by_three_better(num):
+    # a try - except blokk hiba kezelésre használható
+    # ha a try blokkban lévő kód ValueError-t dob akkor az
+    # except ValueError-ban lévő rész fog lefutni.
+    try:
+        num = int(num)
+        if num % 3 == 0:
+            # early return
+            return True
+        return False
+    except ValueError:
+        return 'nem szamot kaptam'
+
+
+print(divisible_by_three_better('4'))
+print(divisible_by_three_better('sadsdf'))
