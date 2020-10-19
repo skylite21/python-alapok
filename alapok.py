@@ -131,3 +131,18 @@ def divisible_by_three_better(num):
 
 print(divisible_by_three_better('4'))
 print(divisible_by_three_better('sadsdf'))
+
+# 0-tól 4ig megy
+for i in range(5):
+    # az end paraméter a string végére beteszi amit aposztrof-ok közé írtunk
+    print(i, end=', ')
+
+print('\n')
+# 5től 9-ig:
+for i in range(5, 10):
+    print(i, end=', ')
+
+print('\n')
+# 5től 25ig 2-essével:
+for i in range(5, 25, 2):
+    print(i, end=', ')
