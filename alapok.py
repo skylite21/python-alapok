@@ -1,8 +1,7 @@
 # meghívjuk a print füvgényt és átatjuk neki a
 # 'hello world' stringet
 # a kettőskeressztel kezdődő sorokat a python nem értelmezi
-# a kettőskeressztel kezdődő sorok comment-ek]
-
+# a kettőskeressztel kezdődő sorok comment-ek
 print('hello world')
 # létrehoztunk egy szoveg nevű változót, az értéke pedig a
 # 'sziasztok!' karakterlánc
@@ -11,6 +10,7 @@ print('hello world')
 # egyenlőségjel bal oldalán lévő változóba.
 szoveg = 'sziasztok!'
 print(szoveg)
+
 # szekvencia: a program az utasításokat (sorokat) soronként
 # hajtja végre egymás után
 # a következő sor hibát dobna, mert nem hoztuk még létre a szoveg2
@@ -121,6 +121,7 @@ def divisible_by_three_better(num):
     # except ValueError-ban lévő rész fog lefutni.
     try:
         num = int(num)
+        
         if num % 3 == 0:
             # early return
             return True
