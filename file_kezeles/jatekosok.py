@@ -37,7 +37,6 @@ for nationality in nationalities:
             # scores[nationality] = scores[nationality] + player['score']
             scores[nationality] += player['score']
 
-print(scores)
 
 underage = []
 for player in players:
@@ -54,3 +53,16 @@ print("a kiskorúak száma: {}".format(len(underage)))
 # 1. English: 101
 # 2. Hungarian: 90
 # 3. Spanish:  49
+
+print(scores)
+
+sorted_scores = []
+for k in sorted(scores, key=scores.get, reverse=True):
+    sorted_scores.append((k, scores[k]))
+
+# sorted_scores = [(k, scores[k])
+#                  for k in sorted(scores, key=scores.get, reverse=True)]
+
+with open('eredmeny.txt', 'w') as file:
+    for i, score in enumerate(sorted_scores):
+        file.write('{}. {}: {}\n'.format(i+1, score[0], score[1]))
