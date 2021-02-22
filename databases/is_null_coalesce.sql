@@ -1,33 +1,29 @@
-drop table if exists pdo.table1;
 
-create table pdo.table1
+drop table if exists ecommerce.table1;
+
+create table ecommerce.table1
 (id int, name varchar(10), manager varchar(10));
 
-insert into pdo.table1 (id, name, manager)
+insert into ecommerce.table1 (id, name, manager)
 values
 (1, null, 'Steve'),
-(2, null, null),
-(3, 'third', 'John'),
-(4, 'fourth', null),
-(5, 'fifth', 'Sarah');
+(1, null, null),
+(3, 'Matt', 'John'),
+(4, 'Raul', null),
+(5, 'Peter', 'Sarah');
 
+select * from ecommerce.table1;
 
-select id, ifnull(name, 'Department name provided') as department_name
-from pdo.table1;
+select id, ifnull(name, 'name not provided') as name
+from ecommerce.table1;
 
+select id, coalesce(name, 'name not provided') as name
+from ecommerce.table1;
 
-select id, coalesce(name, 'department name provided') as department_name
-from pdo.table1;
+-- ha van name akkor azt rakja be, ha nincs akkor megnézi hogy van e manager,
+-- ha van akkor azt rakja be, ha az sincs akkor a string-et
+select id, coalesce(name, manager, 'name not provided') as name
+from ecommerce.table1;
 
-
-select id, coalesce(name, 'department name provided') as department_name
-from pdo.table1;
-
--- ha a name nem null akkor azt teszi be, ha a manager nem null akkor azt teszi be, ha mindkettő
--- null akkor a stringet
-select id, coalesce(name, manager, 'department name provided') as department_name_or_manager
-from pdo.table1;
-
--- a coalesce egy argumentummal is működik, míg az ifnull csak kettővel...
-select id, coalesce('N/A') as department_name_or_manager
-from pdo.table1;
+select id, coalesce('N/A') as name
+from ecommerce.table1;

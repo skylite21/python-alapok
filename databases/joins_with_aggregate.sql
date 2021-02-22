@@ -11,5 +11,3 @@ select emp_no, employees.gender, avg(employees.salaries.salary) as avarage_salar
 from employees.employees
 join employees.salaries using(emp_no)
 group by gender;
-
-
