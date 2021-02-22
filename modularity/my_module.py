@@ -6,3 +6,8 @@ def say_hi():
 
 def multiply(a, b):
     return a * b
+
+
+if __name__ == '__main__':
+    multiply(1, 1)
+    say_hi()

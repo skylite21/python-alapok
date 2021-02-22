@@ -1,13 +1,11 @@
+# https://vi.stackexchange.com/questions/25076/coc-python-reports-unresolved-import-in-git-subfolder
+# assumes that a directory containing .git/ is the root of your project.  To
+# override this behaviour you can set the list to include the name of your
+# virtual environment. In this case:
+# autocmd FileType python let b:coc_root_patterns = ['.git', '.venv']
 
-# ha csak egy két függvényre van szükség:
-# from my_module import say_hi, multiply
-# az egész modult beimportálja:
-import my_module
+from my_module import say_hi, multiply
 
-# ha az egész modult importáltuk akkor így kell rá hivatkozni:
-my_module.say_hi()
-my_module.multiply(4, 4)
 
-# ha csak a függvényeket importáltuk be akkor egyszerűen meghívhatók:
-# say_hi()
-# multiply(5, 6)
+say_hi()
+multiply(2, 2)
