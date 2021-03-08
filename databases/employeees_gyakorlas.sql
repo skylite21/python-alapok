@@ -153,3 +153,121 @@ having avg(salary) > 120000
 order by emp_no
 limit 10;
 
+-- 21. Válasszd ki azokat az emp_no-eket akik több mint egy szerződést írtak
+-- alá, 2000 január elseje után Segítség: használd a dept_emp táblát.  - Beni
+
+select emp_no
+from employees.dept_emp
+where from_date > '2000-01-01'
+group by emp_no
+having count(from_date) > 1;
+
+-- 22. Összesen mennyi részleg van az employees adatbázisban?
+-- Használd a dept_emp táblát a kérdés megválaszolásához - Sándor
+
+select count(distinct dept_no)
+from employees.dept_emp;
+
+-- 23. Összesen mennyi pénzt költöttek fizetésre 1997 január elseje
+-- óta? - Nóra
+
+select sum(salary)
+from employees.salaries
+where from_date > '1997-01-01';
+
+-- 24. Melyik a legalacsonyabb számu employee number az
+-- adatbázisban? - Sándor
+
+select min(emp_no)
+from employees.employees;
+
+-- 25. Melyik a legmagasabb számu employee number az adatbázisban? - Beni
+
+select max(emp_no)
+from employees.employees;
+
+-- 26. Átlagosan mennyi fizetést költöttek 1997-01-01 óta ? - Nóra
+
+select avg(salary)
+from employees.salaries
+where from_date > '1997-01-01';
+
+-- 27. Kerekítsd kettő tizedesjegyre az átlagfizetést 1997-01-01
+-- óta! - Sandor
+
+select round(avg(salary), 2) as avg_salary
+from employees.salaries
+where from_date > '1997-01-01';
+
+-- 28. Válaszd ki a részleg számot (department number) és a részleg
+-- nevét a departments táblából és adj hozzá egy harmadik oszopot
+-- amely a dept_info nevet kapja. Ha a dept_no üres akkor a dept_name
+-- kerüljön ebbe az oszlopba  - Nóra
+
+select dept_no, dept_name, coalesce(dept_no, dept_name) as dept_info
+from employees.departments
+order by dept_no asc;
+
+-- 29. Keress ki minden információt a manager-ekről. Employee
+-- number, vezetéknév, keresztnév, részleg szám, és hire date. - Beni
+
+select emp_no, last_name, first_name, dept_no, hire_date
+from employees.dept_manager
+inner join employees.employees using(emp_no);
+
+-- 30. egyesítsd az employees és a dept_manager táblát és listázz ki minden
+-- olyan employee-t akinek a keresztneve Markovitch. Nézd meg van e a
+-- kimenetben manager ezzel a névvel.  segítség: ezeket a field-eket válaszd
+-- ki: ‘emp_no’, ‘first_name’, ‘last_name’, ‘dept_no’, ‘from_date’. rendezz
+-- 'dept_no' szerint csökkenőbe aztán 'emp_no' szerint. --- Beni
+
+select emp_no,
+first_name,
+last_name,
+dept_no,
+from_date
+from employees.employees
+left join employees.dept_manager using(emp_no)
+where last_name = 'markovitch'
+order by dept_no desc, emp_no;
+
+
+-- 31. Válaszd ki azokat a first_name, last_name, hire_date, title oszlopokat
+-- akiknél a keresztnév "margareta" és a vezetéknév "markovitch" - Sandor
+
+select first_name,
+last_name,
+hire_date,
+title
+from employees.employees
+inner join employees.titles using(emp_no)
+where first_name = 'margareta' and last_name = 'markovitch';
+
+-- 32. Válassz ki minden managert úgy hogy ezek a mezők legyenek az
+-- eredményben: first and last name, hire date, job title, start date, and
+-- department name. - Nora
+
+select first_name,
+last_name,
+hire_date,
+title,
+dept_manager.from_date,
+dept_name
+from employees.dept_manager
+join employees.employees using(emp_no)
+join employees.titles using(emp_no)
+join employees.departments using(dept_no)
+where title = 'manager';
+
+
+-- 33. Keress ki minden információt a department manager-ekeről akik 1990-01-01
+-- és 1995-01-01 között lettek felvéve. (Subquery)
+
+select * 
+from employees.dept_manager
+where emp_no in (
+  select emp_no
+  from employees.employees
+  where hire_date between '1990-01-01' and '1995-01-01'
+);
+
